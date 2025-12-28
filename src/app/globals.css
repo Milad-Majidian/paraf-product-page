@@ -47,24 +47,42 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
+  /* Main background color: #F5F7F7 */
+  --background: oklch(0.972 0.003 217.5);
+  /* Primary font color: #15181A */
+  --foreground: oklch(0.147 0.012 250.5);
+  /* Box background: #FFFFFF */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.141 0.005 285.823);
+  /* Primary font color: #15181A */
+  --card-foreground: oklch(0.147 0.012 250.5);
+  /* Box background: #FFFFFF */
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary: oklch(0.21 0.006 285.885);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.21 0.006 285.885);
+  /* Primary font color: #15181A */
+  --popover-foreground: oklch(0.147 0.012 250.5);
+  /* Primary color: #19A7E5 */
+  --primary: oklch(0.675 0.106 234.8);
+  /* White text on primary */
+  --primary-foreground: oklch(1 0 0);
+  /* Primary border/separator: #ECF0F2 */
+  --secondary: oklch(0.952 0.006 217.5);
+  /* Secondary font color: #667880 */
+  --secondary-foreground: oklch(0.519 0.020 233.7);
+  /* Primary border/separator: #ECF0F2 */
+  --muted: oklch(0.952 0.006 217.5);
+  /* Secondary font color: #667880 */
+  --muted-foreground: oklch(0.519 0.020 233.7);
+  /* Primary border/separator: #ECF0F2 */
+  --accent: oklch(0.952 0.006 217.5);
+  /* Primary font color: #15181A */
+  --accent-foreground: oklch(0.147 0.012 250.5);
+  /* Destructive/error color */
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.705 0.015 286.067);
+  /* Primary border/separator: #ECF0F2 */
+  --border: oklch(0.952 0.006 217.5);
+  /* Secondary border: #C2C9CC */
+  --input: oklch(0.820 0.008 233.7);
+  /* Primary color: #19A7E5 */
+  --ring: oklch(0.675 0.106 234.8);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
