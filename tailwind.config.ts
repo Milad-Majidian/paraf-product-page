@@ -33,6 +33,10 @@ const config: Config = {
     },
     extend: {
         colors:tailwindTokens,
+        fontFamily: {
+          vazirmatn: ["var(--font-vazirmatn)", "sans-serif"],
+          sans: ["var(--font-vazirmatn)", "system-ui", "sans-serif"],
+        },
         borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
