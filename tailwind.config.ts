@@ -1,6 +1,8 @@
 import type { Config } from "tailwindcss";
 import { tailwindTokens } from "./tailwind.token.ts";
 
+const { boxShadow, ...colors } = tailwindTokens;
+
 
 
 const config: Config = {
@@ -32,7 +34,8 @@ const config: Config = {
       },
     },
     extend: {
-        colors:tailwindTokens,
+        colors,
+        boxShadow,
         fontFamily: {
           vazirmatn: ["var(--font-vazirmatn)", "sans-serif"],
           sans: ["var(--font-vazirmatn)", "system-ui", "sans-serif"],

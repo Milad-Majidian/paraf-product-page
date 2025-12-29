@@ -1,35 +1,30 @@
 export const tailwindTokens = {
-  border: "hsl(var(--border))",
-  input: "hsl(var(--input))",
-  ring: "hsl(var(--ring))",
-  background: "hsl(var(--background))",
-  foreground: "hsl(var(--foreground))",
-  primary: {
-    DEFAULT: "hsl(var(--primary))",
-    foreground: "hsl(var(--primary-foreground))",
+  primary: "var(--color-primary)",
+
+  text: {
+    primary: "var(--color-text-primary)",
+    secondary: "var(--color-text-secondary)",
+    tertiary: "var(--color-text-tertiary)"
   },
-  secondary: {
-    DEFAULT: "hsl(var(--secondary))",
-    foreground: "hsl(var(--secondary-foreground))",
+
+  bg: {
+    body: "var(--color-bg-body)",
+    surface: "var(--color-bg-surface)",
   },
-  destructive: {
-    DEFAULT: "hsl(var(--destructive))",
-    foreground: "hsl(var(--destructive-foreground))",
+
+  border: {
+    primary: "var(--color-border-primary)",
+    secondary: "var(--color-border-secondary)",
   },
-  muted: {
-    DEFAULT: "hsl(var(--muted))",
-    foreground: "hsl(var(--muted-foreground))",
-  },
-  accent: {
-    DEFAULT: "hsl(var(--accent))",
-    foreground: "hsl(var(--accent-foreground))",
-  },
-  popover: {
-    DEFAULT: "hsl(var(--popover))",
-    foreground: "hsl(var(--popover-foreground))",
-  },
-  card: {
-    DEFAULT: "hsl(var(--card))",
-    foreground: "hsl(var(--card-foreground))",
+
+  success: "var(--color-success)",
+  error: "var(--color-error)",
+  accent: "var(--color-accent)",
+
+  boxShadow: {
+    card: "var(--shadow-card)",
   },
 };
+
+
+  

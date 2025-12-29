@@ -1,3 +1,5 @@
+@config "../../tailwind.config.ts";
+
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
@@ -58,15 +60,28 @@
   /* Box background: #FFFFFF */
   --popover: oklch(1 0 0);
   /* Primary font color: #15181A */
+  
+  /* Custom Border Colors */
+  /* --color-border-primary: #ECF0F2;
+  --color-border-secondary: #C2C9CC;
+  --color-primary: #19A7E5;
+  --color-text-primary: #15181A;
+  --color-text-secondary: #667880;
+  --color-bg-body: #F5F7F7;
+  --color-bg-surface: #FFFFFF;
+  --color-success: #10B981;
+  --color-error: #EF4444;
+  --color-accent: #19A7E5;
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1); */
   --popover-foreground: oklch(0.147 0.012 250.5);
   /* Primary color: #19A7E5 */
   --primary: oklch(0.675 0.106 234.8);
   /* White text on primary */
   --primary-foreground: oklch(1 0 0);
   /* Primary border/separator: #ECF0F2 */
-  --secondary: oklch(0.952 0.006 217.5);
+  /* --secondary: oklch(0.952 0.006 217.5); */
   /* Secondary font color: #667880 */
-  --secondary-foreground: oklch(0.519 0.020 233.7);
+  /* --secondary-foreground: oklch(0.519 0.020 233.7); */
   /* Primary border/separator: #ECF0F2 */
   --muted: oklch(0.952 0.006 217.5);
   /* Secondary font color: #667880 */
@@ -78,9 +93,9 @@
   /* Destructive/error color */
   --destructive: oklch(0.577 0.245 27.325);
   /* Primary border/separator: #ECF0F2 */
-  --border: oklch(0.952 0.006 217.5);
+  /* --border-primary: oklch(0.952 0.006 217.5); */
   /* Secondary border: #C2C9CC */
-  --input: oklch(0.820 0.008 233.7);
+  /* --border-secondary: oklch(0.820 0.008 233.7); */
   /* Primary color: #19A7E5 */
   --ring: oklch(0.675 0.106 234.8);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -96,6 +111,31 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.705 0.015 286.067);
+
+   /* ===== Brand ===== */
+    --color-primary: #19a7e5;
+
+    /* ===== Text ===== */
+    --color-text-primary: #15181a;
+    --color-text-secondary: #667880;
+    --color-text-tertiary: #A3AEB3;
+
+    /* ===== Backgrounds ===== */
+    --color-bg-body: #f5f7f7;
+    --color-bg-surface: #ffffff;
+
+    /* ===== Borders ===== */
+    --color-border-primary: #ecf0f2;
+    --color-border-secondary: #c2c9cc;
+
+    /* ===== Shadows ===== */
+    --shadow-card: 0px 0px 12px 0px #66788066;
+
+    /* ===== Semantic (Status) ===== */
+    --color-success: #16a34a;
+    --color-error: #dc2626;
+    --color-accent: #7c3aed;
+   
 }
 
 .dark {
@@ -146,3 +186,5 @@
     @apply mx-auto w-full max-w-420 px-4 sm:px-6 lg:px-8;
   }
 }
+
+
