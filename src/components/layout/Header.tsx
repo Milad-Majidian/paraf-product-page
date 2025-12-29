@@ -5,13 +5,11 @@ import {
   Box,
   Briefcase,
   ChevronDown,
-  Menu,
   Plus,
   Search,
   ShoppingCart,
   UserCog,
   Wrench,
-  X,
   ArrowRight
 } from "lucide-react";
 import Link from "next/link";
@@ -19,7 +17,7 @@ import { Button } from "@/components/elements/Button";
 import Image from "next/image";
 import { Input } from "../elements/Input";
 import { Separator } from "../ui/separator";
-import { ProgressBar } from "@/common/ui/ProgressBar";
+import { ProgressBar } from "@/components/elements/ProgressBar";
 import { Flag } from "lucide-react";
 
 const menu = [
@@ -39,14 +37,14 @@ export function Header() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2">
               <Image
-                src="/logo/logo.svg"
+                src="/images/logo/logo.svg"
                 alt="Paraf Logo"
                 width={98}
                 height={40}
                 className="object-contain"
               />
               <Image
-                src="/logo/logo-type.png"
+                src="/images/logo/logo-type.png"
                 alt="Paraf Logo Text"
                 width={100}
                 height={40}
