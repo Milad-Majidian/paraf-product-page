@@ -36,7 +36,7 @@ export default function ProductPage({ slug }: { slug: string }) {
   const [selectedImage, setSelectedImage] = useState(0);
   return (
     <>
-      <section className="base-container">
+      <article className="base-container">
         <div className="bg-bg-surface border border-border-primary rounded-xl p-4 mt-4">
           {/* product Images category */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-7">
@@ -88,7 +88,7 @@ export default function ProductPage({ slug }: { slug: string }) {
         </div>
          
 
-      </section>
+      </article>
     </>
   );
 }
