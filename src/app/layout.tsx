@@ -25,6 +25,7 @@ export default function RootLayout({
       <body className={`${vazirmatn.variable} flex min-h-screen flex-col font-vazirmatn`}>
           <Header />
         <main className="flex-1">{children}</main>
+          <div className="h-12"></div>
       </body>
     </html>
   );

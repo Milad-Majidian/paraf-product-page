@@ -140,7 +140,7 @@ export function Header() {
             </div>
 
             {/* Support */}
-            <button className="hidden md:block text-text-tertiary text-[14px] hover:text-text-primary transition-colors">
+            <button aria-label="پشتیبانی" className="hidden md:block text-text-tertiary text-[14px] hover:text-text-primary transition-colors">
               پشتیبانی
             </button>
 
