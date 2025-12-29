@@ -9,13 +9,13 @@ type CVAConfig = {
 }
 
 function cva(base: string, config?: CVAConfig) {
-  return (opts?: Record<string, any> & { className?: string }) => {
+  return (opts?: Record<string, unknown> & { className?: string }) => {
     const classes: string[] = []
     if (base) classes.push(base)
     if (config?.variants && opts) {
       for (const key of Object.keys(config.variants)) {
         const val = opts[key]
-        if (val) {
+        if (typeof val === "string" && val) {
           const map = config.variants[key]
           if (map && map[val]) classes.push(map[val])
         }
