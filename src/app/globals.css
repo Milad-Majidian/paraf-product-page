@@ -49,8 +49,8 @@
 
 :root {
   --radius: 0.625rem;
-  /* Main background color: #F5F7F7 */
-  --background: oklch(0.972 0.003 217.5);
+  /* Main background color */
+  --background: #F5F7F7;
   /* Primary font color: #15181A */
   --foreground: oklch(0.147 0.012 250.5);
   /* Box background: #FFFFFF */
