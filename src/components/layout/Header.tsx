@@ -57,7 +57,7 @@ export function Header() {
               {menu.map((item) => (
                 <button
                   key={item.name}
-                  className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground rounded-md transition-colors"
+                  className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-foreground rounded-md transition-colors cursor-pointer"
                 >
                   <span className="text-text-secondary">{item.icon}</span>
                   <span className="text-text-secondary text-[16px]">
