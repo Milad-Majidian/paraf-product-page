@@ -20,6 +20,7 @@ export const tailwindTokens = {
   success: "var(--color-success)",
   error: "var(--color-error)",
   accent: "var(--color-accent)",
+  primaryBlue: "var(--color-blue)",
 
   boxShadow: {
     card: "var(--shadow-card)",
