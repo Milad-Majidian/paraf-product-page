@@ -3,6 +3,16 @@ import { Vazirmatn } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 
+const baseUrl = (() => {
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL;
+  if (explicit) return new URL(explicit);
+
+  const vercelUrl = process.env.VERCEL_URL;
+  if (vercelUrl) return new URL(`https://${vercelUrl}`);
+
+  return new URL("http://localhost:3000");
+})();
+
 const vazirmatn = Vazirmatn({
   subsets: ["latin", "arabic"],
   weight: ["400", "500", "600", "700"],
@@ -11,6 +21,7 @@ const vazirmatn = Vazirmatn({
 });
 
 export const metadata: Metadata = {
+  metadataBase: baseUrl,
   title: "Paraf - Product Page",
   description: "Building better products for everyone",
 };
