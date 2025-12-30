@@ -1,33 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Paraf Product Page - Interview Project
 
-## Getting Started
+A modern e-commerce product page built with Next.js 15, featuring a complete shopping cart system, Persian/Farsi localization, and responsive design.
 
-First, run the development server:
+## 🚀 Quick Start
+
+### Installation & Running
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Install dependencies
+pnpm install
+
+# Run development server
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📍 Available Pages
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Homepage: `/`
+- Displays all available products
+- Click any product card to view details
+- Direct links provided for easy navigation
 
-## Learn More
+### Product Pages:
+- `/product/iphone-15-pro-256` - iPhone 15 Pro 256GB
+- `/product/ps5-slim` - PlayStation 5 Slim Console
 
-To learn more about Next.js, take a look at the following resources:
+## ✨ Key Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🛒 Shopping Cart System
+- **Global State Management**: Zustand for cart state
+- **Persistent Storage**: Cart data saved in localStorage
+- **Real-time Updates**: Live cart badge in header
+- **Quantity Control**: Increment/decrement before adding to cart
+- **Dynamic Pricing**: Automatic total calculation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🎨 Design & UI
+- **Responsive Layout**: Mobile-first design
+- **Persian/Farsi Support**: RTL layout with Persian numerals
+- **Custom Components**: Reusable Badge, Button, Input, Separator
+- **shadcn/ui Integration**: Professional UI components
+- **Tailwind CSS**: Custom design tokens for consistent styling
+
+### ♿ Accessibility
+- Semantic HTML5 structure
+- ARIA labels and landmarks
+- Keyboard navigation support
+- Screen reader friendly
+
+### 🏗️ Architecture
+- **Next.js 15**: App Router with TypeScript
+- **Component Structure**: Feature-based organization
+- **Type Safety**: Full TypeScript coverage
+- **Error Handling**: Error boundaries and loading states
+
+## 📁 Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── page.tsx           # Homepage with product listing
+│   └── product/[slug]/    # Dynamic product pages
+├── components/
+│   ├── elements/          # Custom reusable components
+│   ├── layout/            # Header, navigation
+│   └── ui/                # shadcn/ui components
+├── feature/product/       # Product feature module
+│   ├── components/        # Product-specific components
+│   ├── mocks/            # Sample product data
+│   └── types/            # TypeScript types
+├── store/                # Zustand stores
+│   └── cartStore.ts      # Shopping cart state
+└── lib/                  # Utilities and helpers
+```
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript 5
+- **Styling**: Tailwind CSS 4
+- **State Management**: Zustand 5
+- **UI Components**: Radix UI, shadcn/ui
+- **Icons**: Lucide React
+- **Package Manager**: pnpm
+
+## 💡 Implementation Highlights
+
+### Cart Flow
+1. User views product page
+2. Adjusts quantity using +/- controls
+3. Sees real-time price calculation
+4. Clicks "Add to Cart" button
+5. Cart badge updates in header
+6. Cart persists across page refreshes
+
+### Component Design
+- **AddToCartCounter**: Controlled component with callbacks
+- **ProductPurchase**: Manages local quantity state
+- **Header**: Displays live cart count with badge
+- **Badge**: Flexible, reusable component with className merging
+
+## 📝 Notes for Reviewers
+
+This project demonstrates:
+- Modern React patterns (hooks, controlled components)
+- State management best practices
+- Accessible, semantic HTML
+- TypeScript for type safety
+- Professional code organization
+- Persian/Farsi localization
+- Responsive design principles
+
+## 🔗 Learn More
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Zustand Documentation](https://zustand-demo.pmnd.rs/)
+- [Tailwind CSS](https://tailwindcss.com)
+- [shadcn/ui](https://ui.shadcn.com/)
 
 ## Deploy on Vercel
 
