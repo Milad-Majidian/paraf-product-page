@@ -8,6 +8,7 @@ import { imageCategory } from "../mocks/productImages";
 import { Product } from "../types";
 import StoreProductList from "./StoreProductList";
 import RecommendedProducts from "./RecommendedProducts";
+import BoughtTogetherProducts from "./BoughtTogetherProducts";
 
 interface ProductPageProps {
   product: Product;
@@ -18,7 +19,7 @@ export default function ProductPage({ product }: ProductPageProps) {
   return (
     <>
       <article className="base-container">
-        <div className="bg-bg-surface border border-border-primary rounded-xl p-4 mt-4">
+        <div className="bg-bg-surface border border-border-primary rounded-2xl p-5 mt-4">
           {/* product Images category */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-7">
             <div className="col-span-1">
@@ -68,6 +69,7 @@ export default function ProductPage({ product }: ProductPageProps) {
           </div>
         </div>
         <StoreProductList />
+        <BoughtTogetherProducts />
         <RecommendedProducts />
       </article>
     </>
