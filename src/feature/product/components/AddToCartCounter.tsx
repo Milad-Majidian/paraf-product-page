@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/elements/Button";
+import { formatPersianNumber } from "@/lib/formatters";
 import { Minus, Plus } from "lucide-react";
 
 interface AddToCartCounterProps {
@@ -50,17 +51,17 @@ export default function AddToCartCounter({
         aria-label="افزایش تعداد"
         className="flex h-9 w-9 items-center justify-center rounded-full border border-border-secondary bg-bg-surface hover:bg-bg-transparent disabled:cursor-not-allowed disabled:opacity-50"
       >
-        <Plus size={19} className="text-text-primary" aria-hidden="true" />
+        <Plus className="text-text-primary" style={{ width: '20px', height: '20px' }}  aria-hidden="true" />
       </Button>
 
       {/* Quantity display */}
       <output
         htmlFor="cart-counter"
-        className="flex h-8 min-w-13 items-center justify-center rounded-md border border-border-secondary bg-bg-surface px-3 text-sm font-medium text-text-primary"
+        className="flex h-8 min-w-13 items-center justify-center rounded-md border border-border-secondary bg-bg-surface px-3 text-md font-medium text-text-primary"
         aria-live="polite"
         aria-atomic="true"
       >
-        {quantity}
+        {formatPersianNumber(quantity)}
       </output>
 
       {/* Decrement button */}
@@ -70,7 +71,7 @@ export default function AddToCartCounter({
         aria-label="کاهش تعداد"
         className="flex h-9 w-9 items-center justify-center rounded-full border border-border-secondary bg-bg-surface hover:bg-bg-transparent disabled:cursor-not-allowed disabled:opacity-50"
       >
-        <Minus size={19} className="text-text-primary" aria-hidden="true" />
+        <Minus  className="text-text-primary" style={{ width: '20px', height: '20px' }}  aria-hidden="true" />
       </Button>
     </div>
   );

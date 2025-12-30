@@ -1,5 +1,6 @@
 "use client"
 
+import { formatPersianNumber } from "@/lib/formatters"
 import { cn } from "@/lib/utils"
 
 interface ProgressBarProps {
@@ -30,7 +31,7 @@ export function ProgressBar({ value , className,rtl= false }: ProgressBarProps) 
       />
 
       <div className="absolute left-2 pointer-events-none">
-        <span className="text-sm text-white">{val}</span>
+        <span className="text-sm text-white">{formatPersianNumber(val)}</span>
       </div>
     </div>
   )

@@ -21,6 +21,7 @@ import { ProgressBar } from "@/components/elements/ProgressBar";
 import { Flag } from "lucide-react";
 import { useCartStore } from "@/feature/cart/store/cartStore";
 import { useEffect, useState } from "react";
+import { formatPersianNumber } from "@/lib/formatters";
 
 const menu = [
   { name: "product", title: "کالا", icon: <Box size={20} /> },
@@ -115,10 +116,10 @@ export function Header() {
                   <ShoppingCart size={19} />
                   {mounted && totalItems > 0 && (
                     <span 
-                      className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white"
+                      className="absolute -right-2/4 -top-2/4 flex h-5 w-5 items-center justify-center rounded-sm bg-primary text-[10px] font-bold text-white"
                       aria-label={`${totalItems} محصول در سبد`}
                     >
-                      {totalItems > 99 ? '99+' : totalItems}
+                      {totalItems > 99 ? formatPersianNumber(99)+'+' : formatPersianNumber(totalItems)}
                     </span>
                   )}
                 </button>
@@ -127,7 +128,7 @@ export function Header() {
                 </button>
               </div>
 
-              <Separator orientation="vertical" className="h-8 w-px bg-border-secondary/70" />
+              <div className="h-6 w-px bg-separator" aria-hidden="true"></div>
 
               <Button className="bg-bg-surface border border-border-secondary text-text-primary hover:bg-zinc-100 transition-colors">
                 ثبت آگهی جدید
