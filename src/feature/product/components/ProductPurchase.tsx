@@ -189,13 +189,13 @@ export default function ProductPurchase({ product }: ProductPurchaseProps) {
 
           <Separator className="my-6 w-full bg-separator" />
           
-          <fieldset className="bg-primary/20 rounded-xl p-3 mb-4">
+          <fieldset className="bg-[#D1E5FA] rounded-xl p-3 mb-4">
             <legend className="sr-only">گزینه‌های پرداخت</legend>
             <div className="flex flex-col gap-5">
               <div className="flex items-center gap-1">
                 <Checkbox
                   id="secure-payment"
-                  className="bg-white text-text-secondary cursor-pointer"
+                  className="bg-white text-white cursor-pointer border border-border-secondary"
                 />
                 <Label
                   htmlFor="secure-payment"
@@ -207,7 +207,7 @@ export default function ProductPurchase({ product }: ProductPurchaseProps) {
               <div className="flex items-center gap-1">
                 <Checkbox
                   id="installment-payment"
-                  className="bg-white text-text-secondary cursor-pointer"
+                  className="bg-white text-white cursor-pointer border border-border-secondary"
                 />
                 <Label
                   htmlFor="installment-payment"

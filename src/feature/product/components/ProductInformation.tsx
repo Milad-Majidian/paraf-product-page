@@ -178,7 +178,7 @@ export default function ProductInformation() {
         <div className="col-span-1 bg-bg-body rounded-xl p-4">
           <p className="text-text-primary text-[15px]">بیمه</p>
           <div className="flex items-center gap-3 mt-4">
-            <Checkbox id="terms" className="text-text-secondary cursor-pointer" />
+            <Checkbox id="terms" className="text-white border border-border-secondary cursor-pointer" />
             <Label htmlFor="terms" className="text-text-secondary cursor-pointer">بیمه تجهیزات دیجیتال - بیمه سامان</Label>
           </div>
           <p className="flex justify-end items-center gap-1">
