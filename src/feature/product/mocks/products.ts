@@ -13,8 +13,8 @@ const PRODUCTS: Product[] = [
     availability: "in_stock",
     updatedAtISO: new Date().toISOString(),
     images: [
-      { src: "/logo/logo.svg", alt: "تصویر محصول" },
-      { src: "/logo/logo-type.png", alt: "تصویر محصول" },
+      { src: "/images/logo/logo.svg", alt: "تصویر محصول" },
+      { src: "/images/logo/logo-type.png", alt: "تصویر محصول" },
     ],
     store:"فروشگاه موبایل باربد",
     satisfactionPercent: "95%"
@@ -28,7 +28,7 @@ const PRODUCTS: Product[] = [
     condition: "new",
     availability: "in_stock",
     updatedAtISO: new Date().toISOString(),
-    images: [{ src: "/logo/logo.svg", alt: "تصویر محصول" }],
+    images: [{ src: "/images/logo/logo.svg", alt: "تصویر محصول" }],
     store:"فروشگاه بازی کامپیوتر پارسیان"
   },
 ]
