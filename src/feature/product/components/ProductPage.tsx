@@ -3,34 +3,10 @@
 import Image from "next/image";
 import { useState } from "react";
 import ProductInformation from "./ProductInformation";
-import ProductPurcase from "./ProductPurchase";
+import ProductPurchase from "./ProductPurchase";
+import { imageCategory } from "../mocks/productImages";
 
-const imageCategory = [
-  {
-    id: 1,  
-    name: "iphone",
-    src: "/images/products/sample-product-one.svg",
-    alt: "iphone",
-  },
-  {
-    id: 2,
-    name: "iphone-one",
-    src: "/images/products/sample-product-one.svg",
-    alt: "iphone",
-  },
-  {
-    id: 3,
-    name: "iphone-two",
-    src: "/images/products/sample-product-one.svg",
-    alt: "iphone",
-  },
-  {
-    id: 4,
-    name: "iphone-three",
-    src: "/images/products/sample-product-one.svg",
-    alt: "iphone",
-  },
-];
+
 
 export default function ProductPage({ slug }: { slug: string }) {
   const [selectedImage, setSelectedImage] = useState(0);
@@ -83,11 +59,9 @@ export default function ProductPage({ slug }: { slug: string }) {
               </div>
             </div>
              <ProductInformation />  
-             <ProductPurcase />
+             <ProductPurchase />
           </div>
         </div>
-         
-
       </article>
     </>
   );
