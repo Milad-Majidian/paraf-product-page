@@ -114,7 +114,7 @@ export default function ProductInformation() {
               ))}
             </ul>
           </div>
-            <p className="flex justify-end items-center gap-2 text-text-primary mt-4 text-sm font-medium cursor-pointer">
+            <p className="flex justify-end items-center gap-2 text-text-primary mt-4 text-xs font-medium cursor-pointer">
               مشاهده همه ویژگی‌ها
               <ChevronDown size={16} />
             </p>
@@ -159,7 +159,7 @@ export default function ProductInformation() {
             <button
               onClick={() => setExpanded((s) => !s)}
               aria-expanded={expanded}
-              className="flex gap-2 mt-2 text-sm font-medium cursor-pointer"
+              className="flex gap-2 mt-2 text-xs font-medium cursor-pointer"
             >
               {expanded ? "کمتر" : "بیشتر"}
               <ChevronDown
@@ -187,7 +187,7 @@ export default function ProductInformation() {
                 ۹۰۲٬۰۰۰
             <span className="text-text-secondary text-[11px]">تومان</span>
           </p>
-            <p className="flex items-center justify-end gap-2 text-text-primary mt-4 text-sm font-medium cursor-pointer">
+            <p className="flex items-center justify-end gap-2 text-text-primary mt-4 text-xs font-medium cursor-pointer">
               مشاهده جزئیات
               <ChevronDown size={16} />
             </p>

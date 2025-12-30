@@ -79,7 +79,7 @@ export function ReviewItem({ review }: { review: Review }) {
             type="button"
             onClick={() => setExpanded((s) => !s)}
             aria-expanded={expanded}
-            className="flex gap-2 mt-2 text-sm font-medium cursor-pointer"
+            className="flex gap-2 mt-2 text-xs font-medium cursor-pointer"
           >
             {expanded ? "کمتر" : "بیشتر"}
             <ChevronDown
