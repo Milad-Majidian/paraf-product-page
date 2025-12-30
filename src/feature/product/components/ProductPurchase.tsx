@@ -148,7 +148,7 @@ export default function ProductPurchase({ product }: ProductPurchaseProps) {
           {/* Pricing section */}
           <section className="mb-6" aria-labelledby="price-heading">
             <dl className="flex items-center justify-between">
-              <dt id="price-heading" className="text-[13px]">قیمت کالا</dt>
+              <dt id="price-heading" className="text-sm">قیمت کالا</dt>
               <dd className="flex items-center gap-1">
                 <span className="text-[20px] font-extrabold">
                   {formatToman(product.priceToman)}
@@ -165,7 +165,7 @@ export default function ProductPurchase({ product }: ProductPurchaseProps) {
             <h3 id="order-details-heading" className="sr-only">جزئیات سفارش</h3>
             <dl className="flex flex-col gap-6">
               <div className="flex items-center justify-between">
-                <dt className="text-[13px]">تعداد سفارش</dt>
+                <dt className="text-sm">تعداد سفارش</dt>
                 <dd>
                   <AddToCartCounter
                     quantity={displayQuantity}
@@ -178,7 +178,7 @@ export default function ProductPurchase({ product }: ProductPurchaseProps) {
               </div>
 
               <div className="flex items-center justify-between">
-                <dt className="text-[13px]">جمع کل</dt>
+                <dt className="text-sm">جمع کل</dt>
                 <dd className="flex items-center gap-1">
                   <span className="text-[20px] font-bold">{formatToman(itemTotal)}</span>
                   <span className="text-[11px] text-text-secondary">تومان</span>
