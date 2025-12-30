@@ -18,7 +18,6 @@ interface ProductPageProps {
 export default function ProductPage({ product }: ProductPageProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   return (
-    <>
     <ErrorBoundary level="section">
       <article className="base-container">
         <div className="bg-bg-surface border border-border-primary rounded-2xl p-5 mt-4">
@@ -38,7 +37,7 @@ export default function ProductPage({ product }: ProductPageProps) {
               
               {/* Thumbnail Gallery */}
               <div className="grid grid-cols-4 gap-1 mt-2">
-                {imageCategory.slice(0, 3).map((image, index) => (
+                {imageCategory.slice(0, 3).map((image) => (
                   <div
                     key={image.name}
                     onClick={() => setSelectedImage(image.id)}
@@ -74,7 +73,6 @@ export default function ProductPage({ product }: ProductPageProps) {
         <BoughtTogetherProducts />
         <RecommendedProducts />
       </article>
-      </ErrorBoundary>
-    </>
+    </ErrorBoundary>
   );
 }

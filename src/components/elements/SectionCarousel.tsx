@@ -34,6 +34,7 @@ export default function SectionCarousel<TItem>({
       <div className="px-2">
         <div className="bg-border-primary p-px overflow-hidden">
           <Carousel
+            aria-label={ariaLabel ?? title}
             opts={{
               align: "start",
               direction: "rtl",

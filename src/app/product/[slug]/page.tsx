@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { getProductBySlug, formatToman } from "@/feature/product/mocks/products"
+import { getProductBySlug } from "@/feature/product/mocks/products"
 import ProductPage from "@/feature/product/components/ProductPage"
 
 export const dynamic = "force-dynamic"
