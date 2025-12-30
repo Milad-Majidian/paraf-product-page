@@ -21,7 +21,7 @@ export function ProgressBar({ value , className,rtl= false }: ProgressBarProps) 
       aria-valuemax={Math.max(100, val)}
     >
       <div
-        className="absolute top-0 bottom-0 h-full bg-primary rounded-full"
+        className="absolute top-0 bottom-0 h-full rounded-full"
         style={{
           width: `${val}%`,
           left: rtl ? undefined : 0,
@@ -29,8 +29,8 @@ export function ProgressBar({ value , className,rtl= false }: ProgressBarProps) 
         }}
       />
 
-      <div className="absolute left-0  pointer-events-none">
-        <span className="text-sm">{val}</span>
+      <div className="absolute left-2 pointer-events-none">
+        <span className="text-sm text-white">{val}</span>
       </div>
     </div>
   )
