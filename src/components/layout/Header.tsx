@@ -145,7 +145,7 @@ export function Header() {
           {/* Breadcrumb Navigation */}
           <div className="flex items-center gap-1">
             <span className="border border-primary rounded-full p-1">
-              <ArrowRight size={24} className="text-primary"/>
+              <ArrowRight size={20} className="text-primary"/>
             </span>
             <span className="text-text-secondary text-[13px]">صفحه اصلی</span>
             <span className="text-text-tertiary">/</span>
