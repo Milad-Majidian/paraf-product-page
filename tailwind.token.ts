@@ -17,6 +17,8 @@ export const tailwindTokens = {
     secondary: "var(--color-border-secondary)",
   },
 
+  separator: "var(--color-separator)",
+
   success: "var(--color-success)",
   error: "var(--color-error)",
   accentPurple: "var(--color-accent)",

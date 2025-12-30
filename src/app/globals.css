@@ -131,6 +131,9 @@
     /* ===== Shadows ===== */
     --shadow-card: 0px 0px 12px 0px #66788066;
 
+    /* ===== Separators ===== */
+    --color-separator: #E0E4E6;
+
     /* ===== Semantic (Status) ===== */
     --color-success: #16a34a;
     --color-error: #dc2626;
