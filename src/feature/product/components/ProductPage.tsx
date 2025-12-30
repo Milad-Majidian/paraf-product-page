@@ -12,7 +12,6 @@ interface ProductPageProps {
 }
 
 export default function ProductPage({ product }: ProductPageProps) {
-      console.log('product',product)
   const [selectedImage, setSelectedImage] = useState(0);
   return (
     <>
