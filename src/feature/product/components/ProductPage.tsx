@@ -7,6 +7,7 @@ import ProductPurchase from "./ProductPurchase";
 import { imageCategory } from "../mocks/productImages";
 import { Product } from "../types";
 import StoreProductList from "./StoreProductList";
+import RecommendedProducts from "./RecommendedProducts";
 
 interface ProductPageProps {
   product: Product;
@@ -67,6 +68,7 @@ export default function ProductPage({ product }: ProductPageProps) {
           </div>
         </div>
         <StoreProductList />
+        <RecommendedProducts />
       </article>
     </>
   );
