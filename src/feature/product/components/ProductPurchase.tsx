@@ -19,7 +19,7 @@ import {
   Undo2,
 } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useIsClient } from "@/lib/useIsClient";
 import { Product } from "../types";
 import { formatToman } from "../mocks/products";
 import AddToCartCounter from "./AddToCartCounter";
@@ -35,7 +35,7 @@ interface ProductPurchaseProps {
  * Counter buttons directly control cart - badge updates in real-time
  */
 export default function ProductPurchase({ product }: ProductPurchaseProps) {
-  const [mounted, setMounted] = useState(false);
+  const isClient = useIsClient();
 
   const addItem = useCartStore((state) => state.addItem);
   const incrementItem = useCartStore((state) => state.incrementItem);
@@ -44,14 +44,9 @@ export default function ProductPurchase({ product }: ProductPurchaseProps) {
     state.getItemQuantity(product.slug)
   );
 
-  // Prevent hydration mismatch
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   // Display quantity: show cart quantity if in cart, otherwise show 1 as placeholder
   // But only after mounted to prevent hydration issues
-  const displayQuantity = mounted && cartQuantity > 0 ? cartQuantity : 1;
+  const displayQuantity = isClient && cartQuantity > 0 ? cartQuantity : 1;
 
   // Calculate total based on cart quantity (or 1 if not in cart yet)
   const itemTotal = product.priceToman * displayQuantity;
@@ -89,11 +84,7 @@ export default function ProductPurchase({ product }: ProductPurchaseProps) {
         image: product.images[0]?.src,
       });
     }
-    // TODO: Navigate to checkout page
-    console.log("Navigating to checkout...");
   };
-
-  const isInCart = cartQuantity > 0;
 
   return (
     <aside className="col-span-1" aria-label="اطلاعات خرید محصول">
@@ -230,7 +221,7 @@ export default function ProductPurchase({ product }: ProductPurchaseProps) {
             </Button>
             
             <Button
-              onClick={() => console.log("Open bargaining modal...")}
+              onClick={() => undefined}
               className="h-8 w-full rounded-lg bg-transparent border border-border/20 text-primary font-light text-sm hover:bg-primary/5 cursor-pointer"
               aria-label="پیشنهاد قیمت (چانه‌زنی)"
             >
@@ -254,7 +245,7 @@ export default function ProductPurchase({ product }: ProductPurchaseProps) {
           
           <section aria-labelledby="shipping-heading">
             <Button
-              onClick={() => console.log("Toggle shipping details...")}
+              onClick={() => undefined}
               className="w-full flex items-center justify-between bg-transparent p-0! hover:bg-transparent h-auto text-text-primary"
               aria-expanded="true"
               aria-controls="shipping-details"
@@ -283,7 +274,7 @@ export default function ProductPurchase({ product }: ProductPurchaseProps) {
           </section>
         </article>
         <Button
-          onClick={() => console.log("Toggle warnings...")}
+          onClick={() => undefined}
           className="bg-[#F7EDCC] h-11 w-full flex justify-between items-center rounded-2xl mt-3 p-4 hover:bg-[#F7EDCC]/90"
           aria-expanded="false"
           aria-label="مشاهده هشدارهای قبل از معامله"
@@ -293,7 +284,7 @@ export default function ProductPurchase({ product }: ProductPurchaseProps) {
         </Button>
         
         <Button
-          onClick={() => console.log("Report listing...")}
+          onClick={() => undefined}
           className="w-full flex justify-end items-center text-text-primary gap-2 text-sm mt-4 bg-transparent! hover:bg-transparent! p-0 h-auto"
           aria-label="گزارش این آگهی"
         >

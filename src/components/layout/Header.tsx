@@ -16,11 +16,10 @@ import Link from "next/link";
 import { Button } from "@/components/elements/Button";
 import Image from "next/image";
 import { Input } from "../elements/Input";
-import { Separator } from "../ui/separator";
 import { ProgressBar } from "@/components/elements/ProgressBar";
 import { Flag } from "lucide-react";
 import { useCartStore } from "@/feature/cart/store/cartStore";
-import { useEffect, useState } from "react";
+import { useIsClient } from "@/lib/useIsClient";
 import { formatPersianNumber } from "@/lib/formatters";
 
 const menu = [
@@ -30,13 +29,8 @@ const menu = [
 ];
 
 export function Header() {
-  const [mounted, setMounted] = useState(false);
+  const isClient = useIsClient();
   const totalItems = useCartStore((state) => state.totalItems());
-
-  // Prevent hydration mismatch by only showing cart count after mount
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-card shadow-lg">
@@ -110,11 +104,11 @@ export function Header() {
                   <BellRing size={19} />
                 </button>
                 <button 
-                  aria-label={mounted ? `سبد خرید - ${totalItems} محصول` : "سبد خرید"}
+                  aria-label={isClient ? `سبد خرید - ${totalItems} محصول` : "سبد خرید"}
                   className="relative hover:text-text-primary transition-colors"
                 >
                   <ShoppingCart size={19} />
-                  {mounted && totalItems > 0 && (
+                  {isClient && totalItems > 0 && (
                     <span 
                       className="absolute -right-2/4 -top-2/4 flex h-5 w-5 items-center justify-center rounded-sm bg-primary text-[10px] font-bold text-white"
                       aria-label={`${totalItems} محصول در سبد`}
