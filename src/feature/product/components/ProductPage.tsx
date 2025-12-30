@@ -21,7 +21,7 @@ export default function ProductPage({ product }: ProductPageProps) {
       <article className="base-container">
         <div className="bg-bg-surface border border-border-primary rounded-2xl p-5 mt-4">
           {/* product Images category */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-7">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="col-span-1">
               {/* Main Image Display */}
               <div className="border border-border-primary rounded-md overflow-hidden bg-white">
