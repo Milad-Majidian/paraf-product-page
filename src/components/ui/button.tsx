@@ -1,30 +1,6 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
-// Lightweight local stand-ins for `class-variance-authority` to avoid
-// requiring the external package in this environment.
-type VariantMap = Record<string, Record<string, string>>
-type CVAConfig = {
-  variants?: VariantMap
-  defaultVariants?: Record<string, string>
-}
-
-function cva(base: string, config?: CVAConfig) {
-  return (opts?: Record<string, unknown> & { className?: string }) => {
-    const classes: string[] = []
-    if (base) classes.push(base)
-    if (config?.variants && opts) {
-      for (const key of Object.keys(config.variants)) {
-        const val = opts[key]
-        if (typeof val === "string" && val) {
-          const map = config.variants[key]
-          if (map && map[val]) classes.push(map[val])
-        }
-      }
-    }
-    if (opts?.className) classes.push(opts.className)
-    return classes.filter(Boolean).join(" ")
-  }
-}
+import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
@@ -60,20 +36,16 @@ const buttonVariants = cva(
   }
 )
 
-type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
-  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"
-  size?: "default" | "sm" | "lg" | "icon" | "icon-sm" | "icon-lg"
-  asChild?: boolean
-  ref?: React.Ref<HTMLButtonElement>
-}
-
 function Button({
   className,
   variant = "default",
   size = "default",
   asChild = false,
   ...props
-}: ButtonProps) {
+}: React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean
+  }) {
   const Comp = asChild ? Slot : "button"
 
   return (
