@@ -65,7 +65,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
         <div className="flex justify-between items-center">
           <button
             aria-label="افزودن به علاقه‌مندی‌ها"
-            className="text-text-tertiary hover:text-primary transition-colors"
+            className="text-text-tertiary hover:text-primary transition-colors cursor-pointer"
           >
             <Bookmark size={19} />
           </button>

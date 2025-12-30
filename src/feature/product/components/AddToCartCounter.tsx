@@ -49,7 +49,7 @@ export default function AddToCartCounter({
         onClick={handleIncrement}
         disabled={!canIncrement}
         aria-label="افزایش تعداد"
-        className="flex h-9 w-9 items-center justify-center rounded-full border border-border-secondary bg-bg-surface hover:bg-bg-transparent disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex h-9 w-9 items-center justify-center rounded-full border border-border-secondary bg-bg-surface hover:bg-bg-transparent disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
       >
         <Plus className="text-text-primary" style={{ width: '20px', height: '20px' }}  aria-hidden="true" />
       </Button>
@@ -69,7 +69,7 @@ export default function AddToCartCounter({
         onClick={handleDecrement}
         disabled={!canDecrement}
         aria-label="کاهش تعداد"
-        className="flex h-9 w-9 items-center justify-center rounded-full border border-border-secondary bg-bg-surface hover:bg-bg-transparent disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex h-9 w-9 items-center justify-center rounded-full border border-border-secondary bg-bg-surface hover:bg-bg-transparent disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
       >
         <Minus  className="text-text-primary" style={{ width: '20px', height: '20px' }}  aria-hidden="true" />
       </Button>

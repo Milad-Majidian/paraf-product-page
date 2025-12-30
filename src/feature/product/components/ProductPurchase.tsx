@@ -222,7 +222,7 @@ export default function ProductPurchase({ product }: ProductPurchaseProps) {
           <div className="space-y-3">
             <Button
               onClick={handleSubmitOrder}
-              className="h-11 w-full rounded-lg bg-primary font-medium text-[16px] text-white hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+              className="h-11 w-full rounded-lg bg-primary font-medium text-[16px] text-white hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
               aria-label="ثبت سفارش"
             >
               <span>ثبت سفارش</span>
@@ -231,7 +231,7 @@ export default function ProductPurchase({ product }: ProductPurchaseProps) {
             
             <Button
               onClick={() => console.log("Open bargaining modal...")}
-              className="h-8 w-full rounded-lg bg-transparent border border-border/20 text-primary font-light text-sm hover:bg-primary/5"
+              className="h-8 w-full rounded-lg bg-transparent border border-border/20 text-primary font-light text-sm hover:bg-primary/5 cursor-pointer"
               aria-label="پیشنهاد قیمت (چانه‌زنی)"
             >
               <span>پیشنهاد قیمت (چانه‌زنی)</span>

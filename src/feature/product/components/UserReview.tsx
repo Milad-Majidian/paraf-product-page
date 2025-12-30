@@ -29,8 +29,8 @@ export default function UserReview() {
         <button
           type="button"
           onClick={() => setShowAll((s) => !s)}
-          aria-expanded={showAll}
-          className="flex items-center justify-end gap-2 text-text-primary mt-4 text-sm font-medium w-full"
+          aria-expanded={showAll} 
+          className="flex items-center justify-end gap-2 text-text-primary mt-4 text-sm font-medium w-full cursor-pointer"
         >
           {showAll ? "بستن دیدگاه‌ها" : "مشاهده همه دیدگاه‌ها"}
           <ChevronDown
