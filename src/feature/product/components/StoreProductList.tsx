@@ -124,65 +124,67 @@ export default function StoreProductList() {
       {isLoading ? (
         // Initial loading skeleton
         <div className="px-2">
-          <div className="bg-border-primary p-px overflow-hidden">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-px bg-border-primary">
-              {Array.from({ length: INITIAL_PAGE_SIZE }).map((_, index) => (
-                <div key={index} className="bg-bg-surface p-3">
-                  <ProductCardSkeleton />
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-0 ml-px mt-px">
+            {Array.from({ length: INITIAL_PAGE_SIZE }).map((_, index) => (
+              <div
+                key={index}
+                className="bg-bg-surface border border-border-primary -ml-px -mt-px p-3"
+              >
+                <ProductCardSkeleton />
+              </div>
+            ))}
           </div>
         </div>
       ) : filteredProducts.length > 0 ? (
         <>
           <div className="px-2">
-            <div className="bg-border-primary p-px overflow-hidden">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-px bg-border-primary">
-                {/* Show all products except the last one if there are more to load */}
-                {(hasMore && !isLoadingMore
-                  ? filteredProducts.slice(0, -1)
-                  : filteredProducts
-                ).map((product, index) => (
-                  <div
-                    key={product.id}
-                    className="animate-fade-in bg-bg-surface"
-                    style={{
-                      animationDelay: `${(index % INITIAL_PAGE_SIZE) * 30}ms`,
-                    }}
-                  >
-                    <ProductCard product={product} />
-                  </div>
-                ))}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-0 ml-px mt-px">
+              {/* Show all products except the last one if there are more to load */}
+              {(hasMore && !isLoadingMore
+                ? filteredProducts.slice(0, -1)
+                : filteredProducts
+              ).map((product, index) => (
+                <div
+                  key={product.id}
+                  className="animate-fade-in bg-bg-surface border border-border-primary -ml-px -mt-px"
+                  style={{
+                    animationDelay: `${(index % INITIAL_PAGE_SIZE) * 30}ms`,
+                  }}
+                >
+                  <ProductCard product={product} />
+                </div>
+              ))}
 
-                {/* Load more button replacing the last product slot */}
-                {hasMore && !isLoadingMore && (
-                  <button
-                    onClick={handleLoadMore}
-                    className="bg-bg-surface p-4 flex flex-col items-center justify-center gap-3 hover:bg-bg-body transition-colors cursor-pointer min-h-75"
-                    aria-label="بارگذاری محصولات بیشتر"
-                  >
-                    <Ellipsis
-                      className="w-12 h-12 text-text-secondary"
-                      aria-hidden="true"
-                    />
-                    <span className="text-sm font-medium text-text-primary">
-                      مشاهده بیشتر
-                    </span>
-                  </button>
-                )}
+              {/* Load more button replacing the last product slot */}
+              {hasMore && !isLoadingMore && (
+                <button
+                  onClick={handleLoadMore}
+                  className="bg-bg-surface border border-border-primary -ml-px -mt-px p-4 flex flex-col items-center justify-center gap-3 hover:bg-bg-body transition-colors cursor-pointer min-h-75"
+                  aria-label="بارگذاری محصولات بیشتر"
+                >
+                  <Ellipsis
+                    className="w-12 h-12 text-text-secondary"
+                    aria-hidden="true"
+                  />
+                  <span className="text-sm font-medium text-text-primary">
+                    مشاهده بیشتر
+                  </span>
+                </button>
+              )}
 
-                {/* Loading skeleton items while loading more */}
-                {isLoadingMore && (
-                  <>
-                    {Array.from({ length: 6 }).map((_, index) => (
-                      <div key={`loading-${index}`} className="bg-bg-surface p-3">
-                        <ProductCardSkeleton />
-                      </div>
-                    ))}
-                  </>
-                )}
-              </div>
+              {/* Loading skeleton items while loading more */}
+              {isLoadingMore && (
+                <>
+                  {Array.from({ length: 6 }).map((_, index) => (
+                    <div
+                      key={`loading-${index}`}
+                      className="bg-bg-surface border border-border-primary -ml-px -mt-px p-3"
+                    >
+                      <ProductCardSkeleton />
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </>
