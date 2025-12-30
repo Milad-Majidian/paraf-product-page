@@ -2,18 +2,20 @@ import { formatPersianNumber } from "@/lib/formatters";
 import { Bookmark, Store, ThumbsUp } from "lucide-react";
 import Image from "next/image";
 import { StoreProduct } from "../mocks/storeProducts";
+import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
   product: StoreProduct;
+  className?: string;
 }
 
 /**
  * Product card component displaying store product information
  * Used in grid layout for store product listings
  */
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, className }: ProductCardProps) {
   return (
-    <article className="bg-bg-surface flex flex-col gap-2 p-3 hover:shadow-md transition-shadow">
+    <article className={cn("bg-bg-surface flex flex-col gap-2 p-3 hover:shadow-md transition-shadow", className)}>
       {/* Store info header */}
       <header className="flex justify-between mb-2">
         <div className="flex gap-1 items-center">
@@ -49,7 +51,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       </h3>
 
       {/* Product details */}
-      <footer className="flex flex-col justify-center items-between gap-3 p-2">
+      <footer className="flex flex-col justify-center items-between gap-3">
         <div className="flex justify-between items-center">
           <span className="bg-bg-body text-text-primary text-[12px] rounded-2xl px-2 py-1 text-center">
             {product.condition}
