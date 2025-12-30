@@ -16,6 +16,8 @@ const PRODUCTS: Product[] = [
       { src: "/logo/logo.svg", alt: "تصویر محصول" },
       { src: "/logo/logo-type.png", alt: "تصویر محصول" },
     ],
+    store:"فروشگاه موبایل باربد",
+    satisfactionPercent: "95%"
   },
   {
     slug: "ps5-slim",
@@ -27,6 +29,7 @@ const PRODUCTS: Product[] = [
     availability: "in_stock",
     updatedAtISO: new Date().toISOString(),
     images: [{ src: "/logo/logo.svg", alt: "تصویر محصول" }],
+    store:"فروشگاه بازی کامپیوتر پارسیان"
   },
 ]
 

@@ -8,6 +8,7 @@ export type Review = {
   dislike: string;
   active: boolean;
 };
+  // condition?: "new" | "used"
 
 export type Product = {
   slug: string
@@ -19,6 +20,8 @@ export type Product = {
   condition?: "new" | "used"
   availability?: "in_stock" | "out_of_stock"
   updatedAtISO?: string
+  store?: string,
+  satisfactionPercent?: string
 }
 
 export type ImageCategory = {
