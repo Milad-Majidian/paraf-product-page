@@ -19,6 +19,8 @@ import { Input } from "../elements/Input";
 import { Separator } from "../ui/separator";
 import { ProgressBar } from "@/components/elements/ProgressBar";
 import { Flag } from "lucide-react";
+import { useCartStore } from "@/feature/cart/store/cartStore";
+import { useEffect, useState } from "react";
 
 const menu = [
   { name: "product", title: "کالا", icon: <Box size={20} /> },
@@ -27,6 +29,14 @@ const menu = [
 ];
 
 export function Header() {
+  const [mounted, setMounted] = useState(false);
+  const totalItems = useCartStore((state) => state.totalItems());
+
+  // Prevent hydration mismatch by only showing cart count after mount
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <header className="sticky top-0 z-50 w-full bg-card shadow-lg">
       {/* Main Header */}
@@ -98,8 +108,19 @@ export function Header() {
                 <button aria-label="Notifications" className="hover:text-text-primary transition-colors">
                   <BellRing size={19} />
                 </button>
-                <button aria-label="Shopping Cart" className="hover:text-text-primary transition-colors">
+                <button 
+                  aria-label={mounted ? `سبد خرید - ${totalItems} محصول` : "سبد خرید"}
+                  className="relative hover:text-text-primary transition-colors"
+                >
                   <ShoppingCart size={19} />
+                  {mounted && totalItems > 0 && (
+                    <span 
+                      className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white"
+                      aria-label={`${totalItems} محصول در سبد`}
+                    >
+                      {totalItems > 99 ? '99+' : totalItems}
+                    </span>
+                  )}
                 </button>
                 <button aria-label="User Settings" className="hover:text-text-primary transition-colors">
                   <UserCog size={19} />
