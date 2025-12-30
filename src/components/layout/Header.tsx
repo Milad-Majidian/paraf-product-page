@@ -71,7 +71,7 @@ export function Header() {
                   className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-foreground rounded-md transition-colors cursor-pointer"
                 >
                   <span className="text-text-secondary">{item.icon}</span>
-                  <span className="text-text-secondary text-[16px]">
+                  <span className="text-text-secondary text-[15px]">
                     {item.title}
                   </span>
                   {(item.name === "product" || item.name === "services") && (

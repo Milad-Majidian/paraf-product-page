@@ -25,7 +25,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Product Pages:
 - `/product/iphone-15-pro-256` - iPhone 15 Pro 256GB
-- `/product/ps5-slim` - PlayStation 5 Slim Console
 
 ## ✨ Key Features
 
