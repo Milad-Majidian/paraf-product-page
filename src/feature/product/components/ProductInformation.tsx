@@ -88,7 +88,7 @@ export default function ProductInformation() {
               {/* User reviews */}
               <p
                 aria-label="دیدگاه کاربران"
-                className="flex items-center gap-1 bg-[#E0E4E6] text-text-primary text-[12px] rounded-2xl px-2 py-1 text-center"
+                className="flex items-center gap-1 bg-[#E0E4E6] text-text-primary text-[12px] border border-border-secondary rounded-2xl px-2 py-1 text-center"
               >
                 <span>۱۰۷۰</span> دیدگاه{" "}
                 <ChevronLeft size={15} className="text-text-secondary" />
