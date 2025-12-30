@@ -7,7 +7,7 @@ import ProductCard from "./ProductCard";
 export default function RecommendedProducts() {
   return (
      <section
-      className="bg-bg-surface border border-border-primary rounded-xl p-5 mt-4"
+      className="bg-bg-surface border border-border-primary rounded-2xl p-5 mt-4"
         aria-label="محصولات پیشنهادی"
     >
     <SectionCarousel

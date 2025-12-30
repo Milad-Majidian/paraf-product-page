@@ -83,7 +83,7 @@ export default function StoreProductList() {
 
   return (
     <section
-      className="bg-bg-surface border border-border-primary rounded-xl p-4 mt-4"
+      className="bg-bg-surface border border-border-primary rounded-2xl p-4 mt-4"
       aria-label="محصولات فروشگاه"
     >
       {/* Header with title and search */}
