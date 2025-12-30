@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { getProductBySlug, formatToman } from "@/lib/products"
+import { getProductBySlug, formatToman } from "@/feature/product/mocks/products"
 import ProductPage from "@/feature/product/components/ProductPage"
 
 export const dynamic = "force-dynamic"
@@ -48,9 +48,17 @@ export default async function Page({
 	params,
 }: PageProps) {
 	const { slug } = await params
+	const product = await getProductBySlug(slug)
+	
+	console.log('product',product)
+
+	if (!product) {
+		notFound()
+	}
+
 	return (
 		<>
-			<ProductPage slug={slug} />
+			<ProductPage product={product} />
 		</>
 	)
 }
