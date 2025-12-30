@@ -136,7 +136,7 @@ export default function ProductInformation() {
                 transition: "max-height 280ms ease",
               }}
             >
-              <div
+              <p
                 ref={innerRef}
                 className={`text-text-secondary text-sm leading-6 ${
                   !expanded ? "line-clamp-3" : ""
@@ -153,7 +153,7 @@ export default function ProductInformation() {
                 دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و
                 زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات
                 پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-              </div>
+              </p>
             </div>
 
             <button
@@ -192,7 +192,9 @@ export default function ProductInformation() {
               <ChevronDown size={16} />
             </p>
         </div>
-       
+        <Separator className="w-full bg-border-primary" />
+        {/* Product Reviews */}
+         <ProductReviews />     
       </div>
     </>
   );
