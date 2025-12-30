@@ -128,7 +128,7 @@ export function Header() {
                 </button>
               </div>
 
-              <div className="h-6 w-px bg-separator" aria-hidden="true"></div>
+              <div className="h-8 w-px bg-separator" aria-hidden="true"></div>
 
               <Button className="bg-bg-surface border border-border-secondary text-text-primary hover:bg-zinc-100 transition-colors cursor-pointer">
                 ثبت آگهی جدید
