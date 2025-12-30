@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/elements/Input";
 import { Ellipsis, Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { fetchStoreProducts, StoreProduct } from "../mocks/storeProducts";
 import ProductCard from "./ProductCard";
 import ProductCardSkeleton from "./ProductCardSkeleton";
@@ -14,7 +14,6 @@ const INITIAL_PAGE_SIZE = 12;
  * Shows 12 products initially with "Load More" button
  */
 export default function StoreProductList() {
-  const [products, setProducts] = useState<StoreProduct[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<StoreProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -23,55 +22,52 @@ export default function StoreProductList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchInputValue, setSearchInputValue] = useState("");
 
+  const loadProducts = useCallback(
+    async (page: number, query: string, append: boolean = false) => {
+      if (append) {
+        setIsLoadingMore(true);
+      } else {
+        setIsLoading(true);
+      }
+
+      try {
+        const result = await fetchStoreProducts(page, INITIAL_PAGE_SIZE, query);
+
+        if (append) {
+          setFilteredProducts((prev) => [...prev, ...result.products]);
+        } else {
+          setFilteredProducts(result.products);
+        }
+
+        setHasMore(result.hasMore);
+        setCurrentPage(page);
+      } catch (error) {
+        console.error("Failed to load products:", error);
+      } finally {
+        setIsLoading(false);
+        setIsLoadingMore(false);
+      }
+    },
+    []
+  );
+
   // Initial load
   useEffect(() => {
     loadProducts(1, "");
-  }, []);
+  }, [loadProducts]);
 
   // Debounced search effect
   useEffect(() => {
     const timer = setTimeout(() => {
       if (searchInputValue !== searchQuery) {
-        setSearchQuery(searchInputValue);
         setCurrentPage(1);
+        setSearchQuery(searchInputValue);
         loadProducts(1, searchInputValue, false);
       }
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [searchInputValue]);
-
-  const loadProducts = async (
-    page: number,
-    query: string = searchQuery,
-    append: boolean = false
-  ) => {
-    if (append) {
-      setIsLoadingMore(true);
-    } else {
-      setIsLoading(true);
-    }
-
-    try {
-      const result = await fetchStoreProducts(page, INITIAL_PAGE_SIZE, query);
-
-      if (append) {
-        setProducts((prev) => [...prev, ...result.products]);
-        setFilteredProducts((prev) => [...prev, ...result.products]);
-      } else {
-        setProducts(result.products);
-        setFilteredProducts(result.products);
-      }
-
-      setHasMore(result.hasMore);
-      setCurrentPage(page);
-    } catch (error) {
-      console.error("Failed to load products:", error);
-    } finally {
-      setIsLoading(false);
-      setIsLoadingMore(false);
-    }
-  };
+  }, [loadProducts, searchInputValue, searchQuery]);
 
   const handleLoadMore = () => {
     loadProducts(currentPage + 1, searchQuery, true);
