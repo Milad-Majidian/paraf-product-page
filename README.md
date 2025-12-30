@@ -1,6 +1,6 @@
 # Paraf Product Page - Interview Project
 
-A modern e-commerce product page built with Next.js 15, featuring a complete shopping cart system, Persian/Farsi localization, and responsive design.
+A e-commerce product page built with Next.js 15, featuring a complete shopping cart system.
 
 ## 🚀 Quick Start
 
@@ -36,10 +36,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - **Dynamic Pricing**: Automatic total calculation
 
 ### 🎨 Design & UI
-- **Responsive Layout**: Mobile-first design
-- **Persian/Farsi Support**: RTL layout with Persian numerals
 - **Custom Components**: Reusable Badge, Button, Input, Separator
-- **shadcn/ui Integration**: Professional UI components
+- **shadcn/ui Integration**: Custom UI components
 - **Tailwind CSS**: Custom design tokens for consistent styling
 
 ### ♿ Accessibility
@@ -107,9 +105,7 @@ This project demonstrates:
 - State management best practices
 - Accessible, semantic HTML
 - TypeScript for type safety
-- Professional code organization
-- Persian/Farsi localization
-- Responsive design principles
+- code organization
 
 ## 🔗 Learn More
 
