@@ -130,7 +130,7 @@ export function Header() {
 
               <div className="h-6 w-px bg-separator" aria-hidden="true"></div>
 
-              <Button className="bg-bg-surface border border-border-secondary text-text-primary hover:bg-zinc-100 transition-colors">
+              <Button className="bg-bg-surface border border-border-secondary text-text-primary hover:bg-zinc-100 transition-colors cursor-pointer">
                 ثبت آگهی جدید
                 <Plus className="h-4 w-4 text-text-tertiary" />
               </Button>

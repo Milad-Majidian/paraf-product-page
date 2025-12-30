@@ -26,7 +26,7 @@ export default function ProductReviews() {
           <div className="flex flex-col items-start justify-start gap-2">
             <p className="flex justify-center items-center gap-1">
               <span className="text-text-primary font-bold text-sm">
-                ۹۶.۱ ٪
+                ٪ ۹۱.۶ 
               </span>
               <span className="text-[10px]">رضایت از ۳٬۰۵۳ دیدگاه</span>
             </p>
