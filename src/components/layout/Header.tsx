@@ -153,14 +153,14 @@ export function Header() {
             <div className="relative h-7 w-50 flex items-center gap-2 px-3 py-1 rounded-[50px] shadow-card">
               <div className="flex justify-center items-center bg-bg-surface w-8 h-8 rounded-full absolute z-10 right-0">
                 <Image
-                  src="/level-cup.svg"
+                  src="/images/header/level-cup.svg"
                   alt="level-cup"
                   width={24}
                   height={24}
                   className="object-contain"
                 />
               </div>
-              <ProgressBar value={124} className="w-24 h-full rounded-full" rtl={true} />
+              <ProgressBar value={124} className="w-24 h-full bg-accentPurple! rounded-full" rtl={true} />
             </div>
           </div>
         </div>
