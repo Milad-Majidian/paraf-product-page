@@ -5,10 +5,14 @@ import { useState } from "react";
 import ProductInformation from "./ProductInformation";
 import ProductPurchase from "./ProductPurchase";
 import { imageCategory } from "../mocks/productImages";
+import { Product } from "../types";
 
+interface ProductPageProps {
+  product: Product;
+}
 
-
-export default function ProductPage({ slug }: { slug: string }) {
+export default function ProductPage({ product }: ProductPageProps) {
+      console.log('product',product)
   const [selectedImage, setSelectedImage] = useState(0);
   return (
     <>
@@ -59,7 +63,7 @@ export default function ProductPage({ slug }: { slug: string }) {
               </div>
             </div>
              <ProductInformation />  
-             <ProductPurchase />
+             <ProductPurchase product={product} />
           </div>
         </div>
       </article>
