@@ -6,7 +6,7 @@ export default function Loading() {
           {/* Images column */}
           <div className="col-span-1">
             <div className="border border-border-primary rounded-md overflow-hidden bg-white">
-              <div className="aspect-[4/5] bg-muted" />
+              <div className="aspect-4/5 bg-muted" />
             </div>
 
             <div className="grid grid-cols-4 gap-1 mt-2">
