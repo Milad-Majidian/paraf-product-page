@@ -1,78 +1,17 @@
 "use client";
 
 import { Input } from "@/components/elements/Input";
-import { Ellipsis, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import type { ChangeEvent } from "react";
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { fetchStoreProducts, StoreProduct } from "../mocks/storeProducts";
-import ProductCard from "./ProductCard";
 import ProductCardSkeleton from "./ProductCardSkeleton";
+import { useDebouncedValue } from "@/common/hooks/useDebouncedValue";
+import { ProductsGrid } from "./ProductsGrid";
 
 const INITIAL_PAGE_SIZE = 12;
 
 type LoadingState = "initial" | "more" | "idle";
-
-function useDebouncedValue<T>(value: T, delayMs: number) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedValue(value), delayMs);
-    return () => clearTimeout(timer);
-  }, [value, delayMs]);
-
-  return debouncedValue;
-}
-
-const ProductsGrid = memo(function ProductsGrid({
-  products,
-  hasMore,
-  isLoadingMore,
-  onLoadMore,
-}: {
-  products: StoreProduct[];
-  hasMore: boolean;
-  isLoadingMore: boolean;
-  onLoadMore: () => void;
-}) {
-  return (
-    <div className="px-2">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-0 ml-px mt-px">
-        {products.map((product, index) => (
-          <div
-            key={product.id}
-            className="animate-fade-in bg-bg-surface border border-border-primary -ml-px -mt-px"
-            style={{
-              animationDelay: `${(index % INITIAL_PAGE_SIZE) * 30}ms`,
-            }}
-          >
-            <ProductCard product={product} />
-          </div>
-        ))}
-
-        {hasMore && !isLoadingMore && (
-          <button
-            onClick={onLoadMore}
-            className="bg-bg-surface border border-border-primary -ml-px -mt-px p-4 flex flex-col items-center justify-center gap-3 hover:bg-bg-body transition-colors cursor-pointer min-h-75"
-            aria-label="بارگذاری محصولات بیشتر"
-          >
-            <Ellipsis className="w-12 h-12 text-text-secondary" aria-hidden="true" />
-            <span className="text-sm font-medium text-text-primary">مشاهده بیشتر</span>
-          </button>
-        )}
-
-        {isLoadingMore &&
-          Array.from({ length: 6 }).map((_, index) => (
-            <div
-              key={`loading-${index}`}
-              className="bg-bg-surface border border-border-primary -ml-px -mt-px p-3"
-            >
-              <ProductCardSkeleton />
-            </div>
-          ))}
-      </div>
-    </div>
-  );
-});
 
 /**
  * Store product list with search and lazy loading functionality
@@ -88,6 +27,27 @@ export default function StoreProductList() {
 
   const latestRequestIdRef = useRef(0);
 
+  /**
+   * Fetch a page of store products and update component state.
+   *
+   * Uses an incrementing request id (latestRequestIdRef) to ignore
+   * out-of-order/stale responses from previous requests. Sets loadingState
+   * to "initial" when replacing the list and to "more" when appending
+   * additional pages.
+   *
+   * On success:
+   * - mode === "replace": replace the current product list with the fetched
+   *   products
+   * - mode === "append": append the fetched products to the current list
+   *
+   * Updates hasMore and currentPage based on the result. Ensures loadingState
+   * is set back to "idle" only if the completed request is still the latest.
+   * Logs any errors to the console.
+   *
+   * @param page - 1-based page number to fetch
+   * @param query - search query to filter products
+   * @param mode - "replace" to replace the list, "append" to add to it
+   */
   const loadProducts = useCallback(
     async (page: number, query: string, mode: "replace" | "append") => {
       const requestId = ++latestRequestIdRef.current;
