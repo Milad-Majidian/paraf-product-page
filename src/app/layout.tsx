@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Vazirmatn } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
 
 const baseUrl = (() => {
   const explicit = process.env.NEXT_PUBLIC_SITE_URL;
@@ -33,10 +32,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body className={`${vazirmatn.variable} flex min-h-screen flex-col font-vazirmatn`}>
-          <Header />
-        <main className="flex-1">{children}</main>
-          <div className="h-12"></div>
+      {/* flex min-h-screen flex-col font-vazirmatn */}
+      <body className={`${vazirmatn.variable} font-vazirmatn`}>
+        {/* <main className="base-container"> */}
+          {children}
+          {/* </main> */}
       </body>
     </html>
   );

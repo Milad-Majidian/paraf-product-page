@@ -29,8 +29,7 @@ function formatToman(price: number): string {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-bg-surface">
-      <main className="base-container py-12">
+    <div className="min-h-screen bg-bg-surface py-12">
         {/* Welcome Section */}
         <section className="mb-12 text-center">
           <div className="mx-auto mb-6 flex justify-center">
@@ -52,7 +51,6 @@ export default function Home() {
             Click on any product card to view the detailed product page
           </p>
         </section>
-
         {/* Products Grid */}
         <section>
           <h2 className="mb-6 text-2xl font-bold text-text-primary">
@@ -95,7 +93,6 @@ export default function Home() {
             ))}
           </div>
         </section>
-
         {/* Quick Links for Interviewer */}
         <section className="mt-12 rounded-lg border border-border-secondary bg-bg-body p-6">
           <h3 className="mb-4 text-lg font-bold text-text-primary">
@@ -113,7 +110,6 @@ export default function Home() {
             ))}
           </div>
         </section>
-      </main>
     </div>
   );
 }
