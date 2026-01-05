@@ -19,7 +19,7 @@ export default function ProductPage({ product }: ProductPageProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   return (
     <ErrorBoundary level="section">
-      <article className="base-container">
+      <article>
         <div className="bg-bg-surface border border-border-primary rounded-2xl p-5 mt-4">
           {/* product Images category */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
