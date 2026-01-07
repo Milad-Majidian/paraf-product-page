@@ -19,8 +19,8 @@ import { Input } from "../elements/Input";
 import { ProgressBar } from "@/components/elements/ProgressBar";
 import { Flag } from "lucide-react";
 import { useCartStore } from "@/feature/cart/store/cartStore";
-import { useIsClient } from "@/lib/useIsClient";
-import { formatPersianNumber } from "@/lib/formatters";
+import { useIsClient } from "@/share/utils/useIsClient";
+import { formatPersianNumber } from "@/share/utils/formatters";
 
 const menu = [
   { name: "product", title: "کالا", icon: <Box size={20} /> },

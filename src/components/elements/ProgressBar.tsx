@@ -1,7 +1,7 @@
 "use client"
 
-import { formatPersianNumber } from "@/lib/formatters"
-import { cn } from "@/lib/utils"
+import { formatPersianNumber } from "@/share/utils/formatters"
+import { cn } from "@/share/utils/cn"
 
 interface ProgressBarProps {
   value?: number
