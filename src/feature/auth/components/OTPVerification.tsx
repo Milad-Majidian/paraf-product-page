@@ -8,16 +8,16 @@ import { useAuthStore } from "@/feature/auth/store/authStore";
 import { cn } from "@/share/utils/cn";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LogIn, MoveRight } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { convertPersianDigitsToEnglish } from "@/share/utils/phone";
+import { toast } from "sonner";
+import { useSendEmailOTP, useSendPhoneOTP, usePhoneRegistration, useEmailRegistration } from "../hooks/useAuthQueries";
+
 
 export default function OTPVerification() {
-  const router = useRouter();
-  const { phoneOrEmail, loginMethod, isRegistered, setStep } = useAuthStore();
-  const [isLoading, setIsLoading] = useState(false);
+  const { phoneOrEmail, loginMethod, isRegistered, isPhone, setStep, setIsPhone, captchaData } = useAuthStore();
   const [resendTimer, setResendTimer] = useState(10);
-
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
@@ -27,7 +27,7 @@ export default function OTPVerification() {
   const form = useForm<OtpInput>({
     resolver: zodResolver(otpSchema),
     defaultValues: {
-      otp: "",
+      code: "",
     },
   });
 
@@ -39,37 +39,57 @@ export default function OTPVerification() {
     }
   }, [resendTimer]);
 
+
+  const { mutateAsync: verifyPhoneOTP, isPending: isPhonePending } = useSendPhoneOTP();
+  const { mutateAsync: verifyEmailOTP, isPending: isEmailPending } = useSendEmailOTP();
+  const { mutateAsync: checkPhoneRegistration, isPending: isResendingPhone } = usePhoneRegistration();
+  const { mutateAsync: checkEmailRegistration, isPending: isResendingEmail } = useEmailRegistration();
+
+  const isLoading = isPhonePending || isEmailPending || isResendingPhone || isResendingEmail;
+
   const onSubmit = async (data: OtpInput) => {
-    setIsLoading(true);
-
+    const code = convertPersianDigitsToEnglish(data.code);
+    
     try {
-      // TODO: Replace with actual API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      console.log("OTP verification:", { ...data, phoneOrEmail });
-
-      // Navigate based on registration status
-      if (isRegistered) {
-        setStep("password");
+      if (isPhone) {
+        await verifyPhoneOTP({
+          phone: convertPersianDigitsToEnglish(phoneOrEmail),
+          code,
+        });
       } else {
-        setStep("register");
+        await verifyEmailOTP({
+          email: phoneOrEmail,
+          code,
+        });
       }
-    } catch (error) {
-      console.error("OTP verification failed:", error);
-    } finally {
-      setIsLoading(false);
+      // Navigate based on registration status
+      setStep(isRegistered ? "password" : "register");
+      setIsPhone(false)
+    } catch (err: any) {
+      const message = err?.message || "خطا در ارسال‌ اطلاعات";
+      toast.error(message);
     }
   };
 
   const handleResendCode = async () => {
     setResendTimer(60);
-
     try {
-      // TODO: Replace with actual API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log("Resending code to:", phoneOrEmail);
-    } catch (error) {
-      console.error("Resend failed:", error);
+      if (isPhone) {
+       const res =  await checkPhoneRegistration({
+          phone: convertPersianDigitsToEnglish(phoneOrEmail),
+          captchaId:captchaData.captchaId,
+          captcha: captchaData.captcha
+       });
+      } else {
+        const res = await checkEmailRegistration({
+          email: phoneOrEmail,
+           captchaId:captchaData.captchaId,
+          captcha: captchaData.captcha
+        });
+      }
+    } catch (err: any) {
+            const message = err?.message || "خطا در ارسال‌ اطلاعات";
+            toast.error(message);
     }
   };
 
@@ -91,11 +111,13 @@ export default function OTPVerification() {
           <div className="grow">
           <TextField
             control={form.control}
-            name="otp"
+            name="code"
             label="کد تایید"
             placeholder="کد 4 تا 6 رقمی را وارد کنید"
-            type="text"
+            type="tel"
             inputMode="numeric"
+            maxLength={6}
+            numericOnly
             autoComplete="one-time-code"
             required
           />
