@@ -6,7 +6,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   isPhoneRegistered,
-  sendOTPAPI,
   verifyOTPAPI,
   loginWithPasswordAPI,
   registerAPI,
@@ -15,10 +14,13 @@ import {
   logoutAPI,
   getCurrentUserAPI,
   fetchCaptcha,
+  isEmailRegistered,
+  sendPhoneOtp,
+  sendEmailOtp,
 } from "../services/apiServices";
 import { queryKeys } from "@/share/api/queryKeys";
 import { useAuthStore } from "../store/authStore";
-import { CheckPhoneRegistrationPayload } from "../types";
+import { CheckEmailRegistrationPayload, CheckPhoneRegistrationPayload, PhoneEmailRegistrationResponse,CheckSendPhoneOtpPayload,CheckSendEmailOtpPayload } from "../types";
 
 interface CaptchaResponse {
   id: string;
@@ -51,10 +53,6 @@ export function useCaptcha() {
 }
 
 
-interface PhoneEmailRegistrationResponse {
-  registered: boolean;
-}
-
 /**
  * Hook to check if phone is registered
  * Manual trigger only
@@ -65,7 +63,6 @@ export function usePhoneRegistration() {
       const response = await isPhoneRegistered(payload);
 
       if (response.success && response.result) {
-        console.log('response',response);
         return { registered: response.result.registered };
       }
 
@@ -81,28 +78,60 @@ export function usePhoneRegistration() {
 }
 
 /**
- * Hook to send OTP
+ * Hook to check if email is registered
+ * Manual trigger only
  */
-export function useSendOTP() {
-  return useMutation({
-    mutationFn: async ({
-      phoneOrEmail,
-      captchaId,
-      captchaValue,
-    }: {
-      phoneOrEmail: string;
-      captchaId: string;
-      captchaValue: string;
-    }) => {
-      const response = await sendOTPAPI(phoneOrEmail, captchaId, captchaValue);
+export function useEmailRegistration() {
+  return useMutation<PhoneEmailRegistrationResponse, Error, CheckEmailRegistrationPayload>({
+    mutationFn: async (payload: CheckEmailRegistrationPayload): Promise<PhoneEmailRegistrationResponse> => {
+      const response = await isEmailRegistered(payload);
 
-      if (response.success && response.data) {
-        return response.data;
+      if (response.success && response.result) {
+        return { registered: response.result.registered };
       }
 
       throw new Error(
-        (response.error?.message as string) || "Failed to send OTP"
+        (response.error?.message as string) || "Failed to check registration"
       );
+    },
+    onSuccess: (data) => {
+      const authStore = useAuthStore.getState();
+      authStore.setIsRegistered(data.registered);
+    },
+  });
+}
+
+/**
+ * Hook to send OTP to phone
+ */
+export function useSendPhoneOTP() {
+  return useMutation<boolean, Error, CheckSendPhoneOtpPayload>({
+    mutationFn: async (payload) => {
+      
+      const response = await sendPhoneOtp(payload);
+
+      if (response.success) {
+        return true;
+      }
+
+      throw new Error((response.error?.message as string) || "Failed to send OTP");
+    },
+  });
+}
+
+/**
+ * Hook to send OTP to email
+ */
+export function useSendEmailOTP() {
+  return useMutation<boolean, Error, CheckSendEmailOtpPayload>({
+    mutationFn: async (payload) => {
+      const response = await sendEmailOtp(payload);
+      
+      if (response.success) {
+        return true;
+      }
+
+      throw new Error((response.error?.message as string) || "Failed to send OTP");
     },
   });
 }
