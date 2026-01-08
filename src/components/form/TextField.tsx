@@ -9,6 +9,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { cn } from "@/share/utils/cn";
+import { convertPersianDigitsToEnglish } from "@/share/utils/phone";
 import type { Control, FieldPath, FieldValues } from "react-hook-form";
 
 interface TextFieldProps<T extends FieldValues> {
@@ -26,6 +27,10 @@ interface TextFieldProps<T extends FieldValues> {
   inputClassName?: string;
   formLabelClassName?:string;
   dir?: "ltr" | "rtl";
+  /** If true, only numeric characters will be allowed (also converts Persian/Arabic digits) */
+  numericOnly?: boolean;
+  /** Optional maximum input length */
+  maxLength?: number;
 }
 
 export function TextField<T extends FieldValues>({
@@ -43,7 +48,13 @@ export function TextField<T extends FieldValues>({
   inputClassName,
   formLabelClassName,
   dir = "rtl",
+  numericOnly = false,
+  maxLength,
 }: TextFieldProps<T>) {
+
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+  const pastedText = e.clipboardData?.getData("text") ?? "";
+};
   return (
     <FormField
       control={control}
@@ -67,8 +78,30 @@ export function TextField<T extends FieldValues>({
               autoFocus={autoFocus}
               disabled={disabled}
               className={cn("h-10 border-2 border-border-primary placeholder:text-text-tertiary placeholder:text-sm", inputClassName)}
+              maxLength={maxLength}
               dir={dir}
               {...field}
+              onChange={(e: any) => {
+                if (!numericOnly) return field.onChange(e);
+
+                let v = String(e.target.value || "");
+                v = convertPersianDigitsToEnglish(v).replace(/[^0-9]/g, "");
+                if (typeof maxLength === "number") v = v.slice(0, maxLength);
+
+                const cloned = {
+                  ...e,
+                  target: { ...e.target, value: v },
+                } as any;
+
+                field.onChange(cloned);
+              }}
+              onPaste={(e: any) => {
+                if (!numericOnly) return;
+                e.preventDefault();
+                const paste = e.clipboardData?.getData("text") ?? ""
+                const cleaned = convertPersianDigitsToEnglish(String(paste)).replace(/[^0-9]/g, "");
+                field.onChange(typeof maxLength === "number" ? cleaned.slice(0, maxLength) : cleaned);
+              }}
             />
           </FormControl>
           <FormMessage />
