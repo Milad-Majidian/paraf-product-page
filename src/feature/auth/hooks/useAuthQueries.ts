@@ -5,22 +5,28 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  isPhoneRegistered,
-  verifyOTPAPI,
-  loginWithPasswordAPI,
-  registerAPI,
-  requestPasswordResetAPI,
+  registerUser,
   resetPasswordAPI,
-  logoutAPI,
   getCurrentUserAPI,
   fetchCaptcha,
-  isEmailRegistered,
   sendPhoneOtp,
   sendEmailOtp,
+  verifyPassword,
+  phoneRegister,
+  emailRegister
 } from "../services/apiServices";
 import { queryKeys } from "@/share/api/queryKeys";
 import { useAuthStore } from "../store/authStore";
-import { CheckEmailRegistrationPayload, CheckPhoneRegistrationPayload, PhoneEmailRegistrationResponse,CheckSendPhoneOtpPayload,CheckSendEmailOtpPayload } from "../types";
+import { 
+  EmailRegistrationPayload, 
+  PhoneEmailRegistrationResponse, 
+  PhoneRegistrationPayload, 
+  RegistrationPayload, 
+  SendEmailOtpPayload, 
+  SendPhoneOtpPayload,
+  VerfiyPasswordPayload, 
+} from "../types";
+import { success } from "zod";
 
 interface CaptchaResponse {
   id: string;
@@ -58,10 +64,10 @@ export function useCaptcha() {
  * Manual trigger only
  */
 export function usePhoneRegistration() {
-  return useMutation<PhoneEmailRegistrationResponse, Error, CheckPhoneRegistrationPayload>({
-    mutationFn: async (payload: CheckPhoneRegistrationPayload): Promise<PhoneEmailRegistrationResponse> => {
-      const response = await isPhoneRegistered(payload);
-
+  return useMutation<PhoneEmailRegistrationResponse, Error, PhoneRegistrationPayload>({
+    mutationFn: async (payload) => {
+      const response = await phoneRegister(payload);
+      console.log('response',response)
       if (response.success && response.result) {
         return { registered: response.result.registered };
       }
@@ -69,10 +75,6 @@ export function usePhoneRegistration() {
       throw new Error(
         (response.error?.message as string) || "Failed to check registration"
       );
-    },
-    onSuccess: (data) => {
-      const authStore = useAuthStore.getState();
-      authStore.setIsRegistered(data.registered);
     },
   });
 }
@@ -82,21 +84,16 @@ export function usePhoneRegistration() {
  * Manual trigger only
  */
 export function useEmailRegistration() {
-  return useMutation<PhoneEmailRegistrationResponse, Error, CheckEmailRegistrationPayload>({
-    mutationFn: async (payload: CheckEmailRegistrationPayload): Promise<PhoneEmailRegistrationResponse> => {
-      const response = await isEmailRegistered(payload);
-
+  return useMutation<PhoneEmailRegistrationResponse, Error, EmailRegistrationPayload>({
+    mutationFn: async (payload) => {
+      const response = await emailRegister(payload);
+      console.log('response',response)
       if (response.success && response.result) {
         return { registered: response.result.registered };
       }
-
       throw new Error(
         (response.error?.message as string) || "Failed to check registration"
       );
-    },
-    onSuccess: (data) => {
-      const authStore = useAuthStore.getState();
-      authStore.setIsRegistered(data.registered);
     },
   });
 }
@@ -105,13 +102,14 @@ export function useEmailRegistration() {
  * Hook to send OTP to phone
  */
 export function useSendPhoneOTP() {
-  return useMutation<boolean, Error, CheckSendPhoneOtpPayload>({
+  // { message?: string }
+  return useMutation<boolean, Error, SendPhoneOtpPayload>({
     mutationFn: async (payload) => {
-      
       const response = await sendPhoneOtp(payload);
 
       if (response.success) {
-        return true;
+        // return (response.data || response.result) as { message?: string };
+        return response.success
       }
 
       throw new Error((response.error?.message as string) || "Failed to send OTP");
@@ -123,12 +121,13 @@ export function useSendPhoneOTP() {
  * Hook to send OTP to email
  */
 export function useSendEmailOTP() {
-  return useMutation<boolean, Error, CheckSendEmailOtpPayload>({
+  return useMutation<boolean, Error, SendEmailOtpPayload>({
     mutationFn: async (payload) => {
       const response = await sendEmailOtp(payload);
-      
+
       if (response.success) {
-        return true;
+        // return (response.data || response.result) as { message?: string };
+        return response.success
       }
 
       throw new Error((response.error?.message as string) || "Failed to send OTP");
@@ -137,121 +136,40 @@ export function useSendEmailOTP() {
 }
 
 /**
- * Hook to verify OTP
- */
-export function useVerifyOTP() {
-  return useMutation({
-    mutationFn: async ({
-      phoneOrEmail,
-      otp,
-    }: {
-      phoneOrEmail: string;
-      otp: string;
-    }) => {
-      const response = await verifyOTPAPI(phoneOrEmail, otp);
-
-      if (response.success && response.data) {
-        return response.data;
-      }
-
-      throw new Error(
-        (response.error?.message as string) || "Failed to verify OTP"
-      );
-    },
-    onSuccess: (data) => {
-      const authStore = useAuthStore.getState();
-
-      if (data.isNewUser) {
-        authStore.setStep("register");
-      } else {
-        // User is logged in via OTP
-        authStore.setStep("initial");
-      }
-    },
-  });
-}
-
-/**
- * Hook to login with password
- */
-export function useLoginWithPassword() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async ({
-      phoneOrEmail,
-      password,
-    }: {
-      phoneOrEmail: string;
-      password: string;
-    }) => {
-      const response = await loginWithPasswordAPI(phoneOrEmail, password);
-
-      if (response.success && response.data) {
-        return response.data;
-      }
-
-      throw new Error((response.error?.message as string) || "Login failed");
-    },
-    onSuccess: () => {
-      // Invalidate and refetch user data
-      queryClient.invalidateQueries({ queryKey: queryKeys.auth.currentUser() });
-
-      // Reset auth store
-      useAuthStore.getState().reset();
-    },
-  });
-}
-
-/**
  * Hook to register new user
  */
 export function useRegister() {
-  const queryClient = useQueryClient();
+  return useMutation<boolean, Error, RegistrationPayload>({
+    mutationFn: async (payload) => {
+      const response = await registerUser(payload);
 
-  return useMutation({
-    mutationFn: async (data: {
-      phoneOrEmail: string;
-      password: string;
-      name: string;
-      otp: string;
-    }) => {
-      const response = await registerAPI(data);
-
-      if (response.success && response.data) {
-        return response.data;
+      if (response.success ) {
+        return (response.data || response.result) 
       }
 
       throw new Error(
         (response.error?.message as string) || "Registration failed"
       );
     },
-    onSuccess: () => {
-      // Invalidate and refetch user data
-      queryClient.invalidateQueries({ queryKey: queryKeys.auth.currentUser() });
-
-      // Reset auth store
-      useAuthStore.getState().reset();
-    },
   });
 }
+
 
 /**
  * Hook to request password reset
  */
-export function useRequestPasswordReset() {
-  return useMutation({
-    mutationFn: async (phoneOrEmail: string) => {
-      const response = await requestPasswordResetAPI(phoneOrEmail);
-
-      if (response.success && response.data) {
-        return response.data;
+export function userVerifyPassword() {
+  return useMutation<boolean, Error, VerfiyPasswordPayload>({
+    mutationFn: async (payload) => {
+      const response = await verifyPassword(payload);
+        console.log('response',response)
+      if (response.success) {
+        return (response.data || response.result) 
       }
-
-      throw new Error(
-        (response.error?.message as string) ||
-          "Failed to request password reset"
-      );
+      // throw new Error(
+      //   (response.error?.message as string) ||
+      //     "Failed to request password reset"
+      // );
     },
   });
 }
@@ -287,32 +205,6 @@ export function useResetPassword() {
   });
 }
 
-/**
- * Hook to logout
- */
-export function useLogout() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async () => {
-      const response = await logoutAPI();
-
-      if (response.success) {
-        return response.data;
-      }
-
-      throw new Error((response.error?.message as string) || "Logout failed");
-    },
-    onSuccess: () => {
-      // Clear all auth-related queries
-      queryClient.removeQueries({ queryKey: queryKeys.auth.all });
-      queryClient.removeQueries({ queryKey: queryKeys.user.all });
-
-      // Reset auth store
-      useAuthStore.getState().reset();
-    },
-  });
-}
 
 /**
  * Hook to get current user
