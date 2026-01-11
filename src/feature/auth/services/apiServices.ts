@@ -5,7 +5,14 @@
 
 import axiosInstance from '@/share/api/axiosInstance';
 import { ApiResponse } from '@/share/api/types';
-import { CheckEmailRegistrationPayload, CheckPhoneRegistrationPayload, CheckSendEmailOtpPayload, CheckSendPhoneOtpPayload } from '../types';
+import {
+    EmailRegistrationPayload,
+    PhoneRegistrationPayload,
+    RegistrationPayload, 
+    SendEmailOtpPayload, 
+    SendPhoneOtpPayload, 
+    VerfiyPasswordPayload
+  } from '../types';
 
 /**
  * Get captcha for authentication
@@ -17,20 +24,22 @@ export const fetchCaptcha = async () => {
 
 
 /**
- * Check if phone or email is registered
+ *  Register by phone
  */
-export const isPhoneRegistered = async (data: CheckPhoneRegistrationPayload) => {
+export const phoneRegister = async (data: PhoneRegistrationPayload) => {
   const payloadData = { ...data, resend: true };
   const response = await axiosInstance.post<ApiResponse<{ registered: boolean }>>('api/users/check-phone', payloadData);
+  console.log('phoneRegister',response)
   return response.data;
 };
 
 /**
- * Check if phone or email is registered
+ * Register by email
  */
-export const isEmailRegistered = async (data: CheckEmailRegistrationPayload) => {
+export const emailRegister = async (data: EmailRegistrationPayload) => {
 const payloadData = { ...data, resend: true };
   const response = await axiosInstance.post<ApiResponse<{ registered: boolean }>>('api/users/check-email', payloadData);
+  console.log('emailRegister',response)
   return response.data;
 };
 
@@ -38,84 +47,39 @@ const payloadData = { ...data, resend: true };
 /**
  * Send OTP to phone 
  */
-export const sendPhoneOtp = async (data:CheckSendPhoneOtpPayload) => {
-  const response = await axiosInstance.post<ApiResponse<{ message: string }>>('api/user/verify-code', data);
+export const sendPhoneOtp = async (data:SendPhoneOtpPayload) => {
+  const response = await axiosInstance.post<ApiResponse<{ message: string }>>('api/users/verify-code', data);
+  console.log('OTP to phone',response)
   return response.data;
 };
 
 /**
  * Send OTP to email
  */
-export const sendEmailOtp = async (data: CheckSendEmailOtpPayload) => {
-  const response = await axiosInstance.post<ApiResponse<{ message: string }>>('api/auth/send-otp', data);
+export const sendEmailOtp = async (data: SendEmailOtpPayload) => {
+  const response = await axiosInstance.post<ApiResponse<{ message: string }>>('api/users/verify-email-code', data);
+  console.log('Send OTP to email',response)
   return response.data;
 };
 
-/**
- * Verify OTP
- */
-export const verifyOTPAPI = async (phoneOrEmail: string, otp: string) => {
-  const response = await axiosInstance.post<ApiResponse<{ 
-    isNewUser: boolean;
-    message: string;
-  }>>('/auth/verify-otp', {
-    phoneOrEmail,
-    otp,
-  });
-  return response.data;
-};
-
-/**
- * Login with password
- * Sets HttpOnly cookies for accessToken and refreshToken
- */
-export const loginWithPasswordAPI = async (phoneOrEmail: string, password: string) => {
-  const response = await axiosInstance.post<ApiResponse<{
-    user: {
-      id: string;
-      name: string;
-      email: string;
-      phone?: string;
-    };
-    message: string;
-  }>>('/auth/login', {
-    phoneOrEmail,
-    password,
-  });
-  return response.data;
-};
 
 /**
  * Register new user
- * Sets HttpOnly cookies for accessToken and refreshToken
  */
-export const registerAPI = async (data: {
-  phoneOrEmail: string;
-  password: string;
-  name: string;
-  otp: string;
-}) => {
-  const response = await axiosInstance.post<ApiResponse<{
-    user: {
-      id: string;
-      name: string;
-      email: string;
-      phone?: string;
-    };
-    message: string;
-  }>>('/auth/register', data);
+export const registerUser = async (data: RegistrationPayload) => {
+  const response = await axiosInstance.post<ApiResponse>('api/users/signup', data);
   return response.data;
 };
 
 /**
- * Request password reset
+ * Verify with password
  */
-export const requestPasswordResetAPI = async (phoneOrEmail: string) => {
-  const response = await axiosInstance.post<ApiResponse<{ message: string }>>('/auth/forgot-password', {
-    phoneOrEmail,
-  });
+export const verifyPassword = async (data: VerfiyPasswordPayload) => {
+  const response = await axiosInstance.post<ApiResponse>('/api/users/login', data);
+      console.log('response',response.data)
   return response.data;
 };
+
 
 /**
  * Reset password with OTP
@@ -129,14 +93,6 @@ export const resetPasswordAPI = async (phoneOrEmail: string, otp: string, newPas
   return response.data;
 };
 
-/**
- * Logout user
- * Clears HttpOnly cookies
- */
-export const logoutAPI = async () => {
-  const response = await axiosInstance.post<ApiResponse<{ message: string }>>('/auth/logout');
-  return response.data;
-};
 
 /**
  * Get current user profile (requires authentication)
