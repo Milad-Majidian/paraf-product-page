@@ -12,17 +12,25 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { convertPersianDigitsToEnglish } from "@/share/utils/phone";
 import { toast } from "sonner";
-import { useSendEmailOTP, useSendPhoneOTP, usePhoneRegistration, useEmailRegistration } from "../hooks/useAuthQueries";
+import { useSendEmailOTP, useSendPhoneOTP, useResendPhoneOTP, useResendEmailOTP } from "../hooks/useAuthQueries";
 
 
-export default function OTPVerification() {
-  const { phoneOrEmail, loginMethod, isRegistered, isPhone, setStep, setIsPhone, captchaData } = useAuthStore();
-  const [resendTimer, setResendTimer] = useState(10);
-  const formatTime = (seconds: number) => {
+ const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
     return `${m}:${String(s).padStart(2, "0")}`;
   };
+
+
+export default function OTPVerification() {
+  const { phoneOrEmail, loginMethod, isRegistered, setStep, captchaData } = useAuthStore();
+  const { mutateAsync: verifyPhoneOTP, isPending: isPhonePending } = useSendPhoneOTP();
+  const { mutateAsync: verifyEmailOTP, isPending: isEmailPending } = useSendEmailOTP();
+  const { mutateAsync: resendPhoneOTP, isPending: isResendingPhone } = useResendPhoneOTP();
+  const { mutateAsync: resendEmailOTP, isPending: isResendingEmail } = useResendEmailOTP();
+
+  const isLoading = isPhonePending || isEmailPending || isResendingPhone || isResendingEmail;
+  const [resendTimer, setResendTimer] = useState(10);
 
   const form = useForm<OtpInput>({
     resolver: zodResolver(otpSchema),
@@ -39,24 +47,15 @@ export default function OTPVerification() {
     }
   }, [resendTimer]);
 
-
-  const { mutateAsync: verifyPhoneOTP, isPending: isPhonePending } = useSendPhoneOTP();
-  const { mutateAsync: verifyEmailOTP, isPending: isEmailPending } = useSendEmailOTP();
-  const { mutateAsync: checkPhoneRegistration, isPending: isResendingPhone } = usePhoneRegistration();
-  const { mutateAsync: checkEmailRegistration, isPending: isResendingEmail } = useEmailRegistration();
-
-  const isLoading = isPhonePending || isEmailPending || isResendingPhone || isResendingEmail;
-
   const onSubmit = async (data: OtpInput) => {
     const code = convertPersianDigitsToEnglish(data.code);
-    
     try {
-      if (isPhone) {
+      if (loginMethod === "phone") {
         await verifyPhoneOTP({
           phone: convertPersianDigitsToEnglish(phoneOrEmail),
           code,
         });
-      } else {
+      } else if( loginMethod === "email") {
         await verifyEmailOTP({
           email: phoneOrEmail,
           code,
@@ -64,7 +63,6 @@ export default function OTPVerification() {
       }
       // Navigate based on registration status
       setStep(isRegistered ? "password" : "register");
-      setIsPhone(false)
     } catch (err: any) {
       const message = err?.message || "خطا در ارسال‌ اطلاعات";
       toast.error(message);
@@ -72,19 +70,19 @@ export default function OTPVerification() {
   };
 
   const handleResendCode = async () => {
-    setResendTimer(60);
     try {
-      if (isPhone) {
-       const res =  await checkPhoneRegistration({
+      setResendTimer(60);
+      if (loginMethod === "phone") {
+       const res =  await resendPhoneOTP({
           phone: convertPersianDigitsToEnglish(phoneOrEmail),
           captchaId:captchaData.captchaId,
           captcha: captchaData.captcha
        });
-      } else {
-        const res = await checkEmailRegistration({
-          email: phoneOrEmail,
+      } else if( loginMethod === "email") {
+        const res = await resendEmailOTP({
+           email: phoneOrEmail,
            captchaId:captchaData.captchaId,
-          captcha: captchaData.captcha
+           captcha: captchaData.captcha
         });
       }
     } catch (err: any) {
