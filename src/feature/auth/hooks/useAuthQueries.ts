@@ -13,7 +13,9 @@ import {
   sendEmailOtp,
   verifyPassword,
   phoneRegister,
-  emailRegister
+  emailRegister,
+  resendPhoneOtp,
+  resendEmailOtp
 } from "../services/apiServices";
 import { queryKeys } from "@/share/api/queryKeys";
 import { useAuthStore } from "../store/authStore";
@@ -26,7 +28,6 @@ import {
   SendPhoneOtpPayload,
   VerfiyPasswordPayload, 
 } from "../types";
-import { success } from "zod";
 
 interface CaptchaResponse {
   id: string;
@@ -124,6 +125,42 @@ export function useSendEmailOTP() {
   return useMutation<boolean, Error, SendEmailOtpPayload>({
     mutationFn: async (payload) => {
       const response = await sendEmailOtp(payload);
+
+      if (response.success) {
+        // return (response.data || response.result) as { message?: string };
+        return response.success
+      }
+
+      throw new Error((response.error?.message as string) || "Failed to send OTP");
+    },
+  });
+}
+
+/**
+ * Hook to Resend OTP to phone
+ */
+export function useResendPhoneOTP() {
+  return useMutation<boolean, Error, PhoneRegistrationPayload>({
+    mutationFn: async (payload) => {
+      const response = await resendPhoneOtp(payload);
+
+      if (response.success) {
+        // return (response.data || response.result) as { message?: string };
+        return response.success
+      }
+
+      throw new Error((response.error?.message as string) || "Failed to send OTP");
+    },
+  });
+}
+
+/**
+ * Hook to Resend OTP to email
+ */
+export function useResendEmailOTP() {
+  return useMutation<boolean, Error, EmailRegistrationPayload>({
+    mutationFn: async (payload) => {
+      const response = await resendEmailOtp(payload);
 
       if (response.success) {
         // return (response.data || response.result) as { message?: string };
