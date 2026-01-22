@@ -1,3 +1,5 @@
+import { negative } from "zod";
+
 export const tailwindTokens = {
   primary: "var(--color-primary)",
 
@@ -10,6 +12,7 @@ export const tailwindTokens = {
   bg: {
     body: "var(--color-bg-body)",
     surface: "var(--color-bg-surface)",
+    login: "var(--color-bg-login)"
   },
 
   border: {
@@ -20,6 +23,7 @@ export const tailwindTokens = {
   separator: "var(--color-separator)",
 
   success: "var(--color-success)",
+  negative: "var(--color-negative)",
   error: "var(--color-error)",
   accentPurple: "var(--color-accent)",
   primaryBlue: "var(--color-blue)",
