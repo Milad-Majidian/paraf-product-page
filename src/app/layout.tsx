@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Vazirmatn } from "next/font/google";
 import "./globals.css";
+import { QueryProvider } from "@/share/providers/QueryProvider";
+import { Toaster } from "sonner";
+
 
 const baseUrl = (() => {
   const explicit = process.env.NEXT_PUBLIC_SITE_URL;
@@ -34,9 +37,14 @@ export default function RootLayout({
     <html lang="fa" dir="rtl">
       {/* flex min-h-screen flex-col font-vazirmatn */}
       <body className={`${vazirmatn.variable} font-vazirmatn`}>
-        {/* <main className="base-container"> */}
+        <QueryProvider>
           {children}
-          {/* </main> */}
+        </QueryProvider>
+         <Toaster
+          position="top-center"
+          richColors
+          closeButton
+        />
       </body>
     </html>
   );
