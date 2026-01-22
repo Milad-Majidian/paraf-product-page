@@ -94,6 +94,7 @@
     /* ===== Backgrounds ===== */
     --color-bg-body: #f5f7f7;
     --color-bg-surface: #ffffff;
+    --color-bg-login : #D1E5FA;
 
     /* ===== Borders ===== */
     --color-border-primary: #ecf0f2;
@@ -110,6 +111,7 @@
     --color-error: #dc2626;
     --color-accent: #7c3aed;
     --color-blue : #177EE5;
+    --color-negative: #E02D2D;
 
 
    
